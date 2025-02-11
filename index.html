@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown to Wedding</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Background Image -->
+    <div class="background"></div>
+
+    <!-- Moving "1 Day Left" Text -->
+    <div id="moving-text"></div>
+
+    <!-- Red Circle/Heart "Press Me" Button -->
+    <button id="startButton" class="circle-button">
+      <span class="heart-text">Press Me</span>
+    </button>
+
+    <!-- Slideshow Container (hidden initially) -->
+    <div class="slideshow-container" id="slideshow-container" style="display: none;">
+      <div id="slideshow-wrapper"></div>
+    </div>
+
+    <!-- Slideshow Controls (hidden initially) -->
+    <div id="controls" style="display: none;">
+      <button id="prevButton" class="arrow-button">◀</button>
+      <button id="playPauseSlideshow">▶ Slideshow</button>
+      <button id="playPauseMusic">▶ Music</button>
+      <button id="nextButton" class="arrow-button">▶</button>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="backgroundMusic" loop>
+      <source src="audio/that_part.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
