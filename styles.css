@@ -262,10 +262,12 @@ body {
     width: 40px;
     height: 40px;
   }
-  /* Adjust container margins for final overlay rows on mobile */
   .falling-hearts-container,
   .pulsing-hearts-container {
-    margin: 5px 0;
+    margin: 10px 0;
+  }
+  #finalContent {
+    padding: 20px;
   }
 }
 
@@ -286,11 +288,11 @@ body {
   text-align: center;
   color: white;
   animation: finalMessageAnim 2s ease-out;
-  padding: 20px;
+  padding: 30px; /* Increased overall padding */
 }
 #finalContent h1 {
   font-size: 4rem;
-  margin: 20px 0;
+  margin-bottom: 30px; /* Increased vertical margin */
 }
 /* "I Love You" pulsate animation (continues until replay is clicked) */
 .pulsate {
@@ -307,7 +309,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
+  margin: 30px 0;  /* Increased vertical margin */
 }
 /* ---------- Final Overlay Heart Shape ---------- */
 .final-heart {
@@ -317,7 +319,7 @@ body {
   background: red;
   transform: rotate(-45deg);
   display: inline-block;
-  margin: 0 10px; /* Increased horizontal margin */
+  margin: 0 20px; /* Increased horizontal margin */
 }
 .final-heart::before,
 .final-heart::after {
