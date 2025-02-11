@@ -269,6 +269,15 @@ body {
   #finalContent {
     padding: 20px;
   }
+    /* Hide extra hearts so only three remain in each row */
+  .falling-hearts-container.top-row .final-heart:nth-child(1),
+  .falling-hearts-container.top-row .final-heart:nth-child(5),
+  .pulsing-hearts-container .final-heart:nth-child(1),
+  .pulsing-hearts-container .final-heart:nth-child(5),
+  .falling-hearts-container.bottom-row .final-heart:nth-child(1),
+  .falling-hearts-container.bottom-row .final-heart:nth-child(5) {
+    display: none;
+  }
 }
 
 /* ---------- Final Message Overlay ---------- */
