@@ -30,7 +30,7 @@ const slideshowWrapper = document.getElementById("slideshow-wrapper");
 const totalImages = 117;
 let images = [];
 for (let i = 1; i <= totalImages; i++) {
-  images.push(`images/placeholder${i}.jpg`);
+  images.push(`placeholder${i}.jpg`);
 }
 images.sort(() => Math.random() - 0.5);
 
