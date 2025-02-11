@@ -95,7 +95,7 @@ startButton.addEventListener("click", () => {
   slideshowContainer.style.display = "flex";
   controls.style.display = "flex";
 
-  // Start playing the music immediately
+  // Start music immediately
   backgroundMusic.play();
   musicPlaying = true;
   playPauseMusic.textContent = "⏸ Music";
