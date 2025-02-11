@@ -269,13 +269,13 @@ body {
   #finalContent {
     padding: 20px;
   }
-    /* Hide extra hearts so only three remain in each row */
-  .falling-hearts-container.top-row .final-heart:nth-child(1),
-  .falling-hearts-container.top-row .final-heart:nth-child(5),
-  .pulsing-hearts-container .final-heart:nth-child(1),
-  .pulsing-hearts-container .final-heart:nth-child(5),
-  .falling-hearts-container.bottom-row .final-heart:nth-child(1),
-  .falling-hearts-container.bottom-row .final-heart:nth-child(5) {
+  /* Hide extra hearts so only three remain per row */
+  .falling-hearts-container.top-row .final-heart:first-child,
+  .falling-hearts-container.top-row .final-heart:last-child,
+  .pulsing-hearts-container .final-heart:first-child,
+  .pulsing-hearts-container .final-heart:last-child,
+  .falling-hearts-container.bottom-row .final-heart:first-child,
+  .falling-hearts-container.bottom-row .final-heart:last-child {
     display: none;
   }
 }
@@ -297,11 +297,11 @@ body {
   text-align: center;
   color: white;
   animation: finalMessageAnim 2s ease-out;
-  padding: 30px; /* Increased overall padding */
+  padding: 30px;
 }
 #finalContent h1 {
   font-size: 4rem;
-  margin-bottom: 30px; /* Increased vertical margin */
+  margin-bottom: 30px;
 }
 /* "I Love You" pulsate animation (continues until replay is clicked) */
 .pulsate {
@@ -312,13 +312,13 @@ body {
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
-/* Containers for final overlay hearts with extra spacing */
+/* Containers for final overlay hearts with increased vertical spacing */
 .falling-hearts-container,
 .pulsing-hearts-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 40px 0;  /* Increased vertical margin */
+  margin: 40px 0;
 }
 /* ---------- Final Overlay Heart Shape ---------- */
 .final-heart {
@@ -328,7 +328,7 @@ body {
   background: red;
   transform: rotate(-45deg);
   display: inline-block;
-  margin: 0 20px; /* Increased horizontal margin */
+  margin: 0 20px;
 }
 .final-heart::before,
 .final-heart::after {
