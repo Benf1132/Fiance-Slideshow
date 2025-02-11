@@ -40,7 +40,6 @@ body {
   z-index: 2;
 }
 
-/* Square path using the container dimensions for wide screens */
 @keyframes squarePath {
   0%   { top: 0;                left: 0; }
   25%  { top: 0;                left: calc(100% - 300px); }
@@ -49,13 +48,11 @@ body {
   100% { top: 0;                left: 0; }
 }
 
-/* Each letter in the moving text will have a continuous color cycle */
 .moving-letter {
   display: inline-block;
   animation: colorCycle 3s linear infinite;
 }
 
-/* Color cycle keyframes */
 @keyframes colorCycle {
   0%   { color: red; }
   20%  { color: blue; }
@@ -65,7 +62,6 @@ body {
   100% { color: red; }
 }
 
-/* Extra effect animations (applied briefly to each letter) */
 @keyframes effectFade {
   0% { opacity: 0; }
   100% { opacity: 1; }
@@ -118,7 +114,6 @@ body {
   transition: transform 0.5s ease;
 }
 
-/* Pseudo-elements for heart shape (initially hidden) */
 .circle-button::before,
 .circle-button::after {
   content: "";
@@ -132,7 +127,6 @@ body {
   transition: opacity 0.5s ease, top 0.5s ease, left 0.5s ease;
 }
 
-/* On hover, transform the circle into a heart */
 .circle-button:hover {
   transform: translate(-50%, -50%) rotate(-45deg);
   border-radius: 0;
@@ -154,7 +148,6 @@ body {
 /* ---------- Slideshow Container ---------- */
 .slideshow-container {
   position: absolute;
-  /* For desktop, centered at 50% (vertically) remains unchanged */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -168,7 +161,6 @@ body {
   background: rgba(0, 0, 0, 0.5);
 }
 
-/* Center and contain images within the frame */
 .slideshow-container img {
   position: absolute;
   top: 50%;
@@ -201,6 +193,12 @@ body {
   color: white;
   border: none;
   border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#controls button:hover {
+  background-color: #555;
+  transform: scale(1.1);
 }
 
 .arrow-button {
@@ -209,6 +207,11 @@ body {
   border: none;
   color: white;
   cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.arrow-button:hover {
+  transform: scale(1.1);
 }
 
 /* ---------- Slideshow Transition Animations ---------- */
@@ -235,7 +238,6 @@ body {
 
 /* ---------- Mobile Styles ---------- */
 @media (max-width: 600px) {
-  /* Adjust the moving text dimensions and animation on mobile */
   #moving-text {
     width: 200px;
     height: 60px;
@@ -250,8 +252,6 @@ body {
     100% { top: 0;                left: 0; }
   }
   
-  /* For mobile, raise the picture frame and center it.
-     The frame becomes responsive (90vw with a max of 300px) so that there’s visible margin on the sides. */
   .slideshow-container {
     top: 50%;
     width: 90vw;
@@ -262,7 +262,6 @@ body {
     transform: translate(-50%, -50%);
   }
   
-  /* Adjust the controls so they appear centered just below the frame */
   #controls {
     top: calc(50% + (min(90vw, 300px) / 2) + 20px);
     left: 50%;
@@ -294,6 +293,49 @@ body {
 #finalContent h1 {
   font-size: 4rem;
   margin-bottom: 20px;
+}
+
+/* "I Love You" pulsate animation (continues until replay is clicked) */
+.pulsate {
+  animation: pulsate 1.5s infinite;
+}
+
+@keyframes pulsate {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.hearts-container {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.heart {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: red;
+  clip-path: polygon(50% 0%, 61% 20%, 80% 20%, 90% 35%, 90% 55%, 80% 70%, 50% 90%, 20% 70%, 10% 55%, 10% 35%, 20% 20%, 39% 20%);
+  animation: floatHearts 4s infinite;
+  opacity: 0.8;
+}
+
+@keyframes floatHearts {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(20px) scale(1.2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 #finalContent button {
