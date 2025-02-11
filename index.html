@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Prevents scaling on mobile so the layout is locked and centered -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Countdown to Wedding</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -35,7 +36,13 @@
       <!-- Final Message Overlay (hidden initially) -->
       <div id="finalMessage" style="display: none;">
         <div id="finalContent">
-          <h1>I Love You</h1>
+          <h1 class="pulsate">I Love You</h1>
+          <div class="hearts-container">
+            <!-- Three hearts positioned with inline styles (you can add more if desired) -->
+            <div class="heart" style="left:10%; top:0;"></div>
+            <div class="heart" style="left:40%; top:20px;"></div>
+            <div class="heart" style="left:70%; top:0;"></div>
+          </div>
           <button id="replayButton">Replay</button>
         </div>
       </div>
