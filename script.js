@@ -91,13 +91,19 @@ function endSlideshow() {
 
 /***** Button Event Listeners *****/
 startButton.addEventListener("click", () => {
-  startButton.style.display = "none";
-  slideshowContainer.style.display = "flex";
-  controls.style.display = "flex";
+  startButton.style.display = "none";             // Hide the button
+  slideshowContainer.style.display = "flex";       // Show the slideshow frame
+  controls.style.display = "flex";                 // Show the controls
+  
+  // Start playing the music immediately
   backgroundMusic.play();
   musicPlaying = true;
   playPauseMusic.textContent = "⏸ Music";
-  startSlideshow();
+  
+  // After a 1-second delay, start the slideshow so the music is already playing
+  setTimeout(() => {
+    startSlideshow();
+  }, 1000);
 });
 
 playPauseMusic.addEventListener("click", () => {
