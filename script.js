@@ -30,6 +30,7 @@ const slideshowWrapper = document.getElementById("slideshow-wrapper");
 const totalImages = 117;
 let images = [];
 for (let i = 1; i <= totalImages; i++) {
+  // Since your photos are in the same directory, this path is correct
   images.push(`placeholder${i}.jpg`);
 }
 images.sort(() => Math.random() - 0.5);
@@ -85,22 +86,21 @@ function startSlideshow() {
 function endSlideshow() {
   clearInterval(slideshowInterval);
   backgroundMusic.pause();
-  // Show the final message overlay
   document.getElementById("finalMessage").style.display = "flex";
 }
 
 /***** Button Event Listeners *****/
 startButton.addEventListener("click", () => {
-  startButton.style.display = "none";             // Hide the button
-  slideshowContainer.style.display = "flex";       // Show the slideshow frame
-  controls.style.display = "flex";                 // Show the controls
-  
-  // Start playing the music immediately
+  startButton.style.display = "none";
+  slideshowContainer.style.display = "flex";
+  controls.style.display = "flex";
+
+  // Start music immediately
   backgroundMusic.play();
   musicPlaying = true;
   playPauseMusic.textContent = "⏸ Music";
-  
-  // After a 1-second delay, start the slideshow so the music is already playing
+
+  // Start slideshow after a short delay so the music is already playing
   setTimeout(() => {
     startSlideshow();
   }, 1000);
@@ -134,7 +134,7 @@ nextButton.addEventListener("click", () => changeImage(1));
 document.getElementById("replayButton").addEventListener("click", () => {
   // Hide final message overlay
   document.getElementById("finalMessage").style.display = "none";
-  // Reset slideshow images: hide all and show first image
+  // Reset slideshow images: hide all and show the first image
   slideshowImages.forEach(img => (img.style.display = "none"));
   currentIndex = 0;
   slideshowImages[currentIndex].style.display = "block";
