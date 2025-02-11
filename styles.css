@@ -239,8 +239,6 @@ body {
     75%  { top: calc(100% - 60px);  left: 0; }
     100% { top: 0;                left: 0; }
   }
-  
-  /* For mobile, raise and resize the picture frame so it is centered immediately */
   .slideshow-container {
     top: 50%;
     width: 90vw;
@@ -250,8 +248,6 @@ body {
     border-width: 5px;
     transform: translate(-50%, -50%);
   }
-  
-  /* Position the controls below the mobile frame */
   #controls {
     top: calc(50% + (min(90vw, 300px) / 2) + 20px);
     left: 50%;
@@ -297,13 +293,13 @@ body {
   height: 150px;
   margin-bottom: 20px;
 }
+/* Revised heart shape using a 12-point polygon */
 .heart {
   position: absolute;
   width: 30px;
   height: 30px;
   background: red;
-  /* Revised clip-path for a better heart shape */
-  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  clip-path: polygon(50% 0%, 63% 12%, 75% 25%, 82% 40%, 80% 60%, 70% 80%, 50% 100%, 30% 80%, 20% 60%, 18% 40%, 25% 25%, 37% 12%);
   animation: floatHearts 4s infinite;
   opacity: 0.8;
 }
@@ -328,21 +324,4 @@ body {
 @keyframes finalMessageAnim {
   0% { opacity: 0; transform: scale(0.5); }
   100% { opacity: 1; transform: scale(1); }
-}
-
-/* ---------- Floating Hearts (sporadically around the page) ---------- */
-.floating-heart {
-  position: fixed;
-  bottom: -50px;
-  width: 30px;
-  height: 30px;
-  background: red;
-  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-  animation: floatUp 4s ease-in-out;
-  opacity: 0.8;
-}
-@keyframes floatUp {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  50% { transform: translateY(-100px) scale(1.2); opacity: 0.5; }
-  100% { transform: translateY(-200px) scale(1); opacity: 0; }
 }
