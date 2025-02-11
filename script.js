@@ -89,24 +89,11 @@ function endSlideshow() {
   document.getElementById("finalMessage").style.display = "flex";
 }
 
-/***** Floating Hearts (sporadically appear) *****/
-function createFloatingHeart() {
-  const heart = document.createElement("div");
-  heart.classList.add("floating-heart");
-  heart.style.left = Math.random() * 100 + "vw"; // Random horizontal position
-  heart.style.animationDelay = Math.random() * 2 + "s"; // Random delay
-  document.getElementById("floating-hearts").appendChild(heart);
-  setTimeout(() => {
-    heart.remove();
-  }, 4000);
-}
-setInterval(createFloatingHeart, 1000);
-
 /***** Button Event Listeners *****/
 startButton.addEventListener("click", () => {
-  startButton.style.display = "none";             // Hide the button
-  slideshowContainer.style.display = "flex";       // Show the slideshow frame
-  controls.style.display = "flex";                 // Show the controls
+  startButton.style.display = "none";
+  slideshowContainer.style.display = "flex";
+  controls.style.display = "flex";
 
   // Start playing the music immediately
   backgroundMusic.play();
