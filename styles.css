@@ -40,11 +40,11 @@ body {
   z-index: 2;
 }
 @keyframes squarePath {
-  0%   { top: 0;                left: 0; }
-  25%  { top: 0;                left: calc(100% - 300px); }
-  50%  { top: calc(100% - 80px);  left: calc(100% - 300px); }
-  75%  { top: calc(100% - 80px);  left: 0; }
-  100% { top: 0;                left: 0; }
+  0%   { top: 0; left: 0; }
+  25%  { top: 0; left: calc(100% - 300px); }
+  50%  { top: calc(100% - 80px); left: calc(100% - 300px); }
+  75%  { top: calc(100% - 80px); left: 0; }
+  100% { top: 0; left: 0; }
 }
 .moving-letter {
   display: inline-block;
@@ -233,11 +233,11 @@ body {
     animation: squarePathMobile 12s linear infinite;
   }
   @keyframes squarePathMobile {
-    0%   { top: 0;                left: 0; }
-    25%  { top: 0;                left: calc(100% - 200px); }
-    50%  { top: calc(100% - 60px);  left: calc(100% - 200px); }
-    75%  { top: calc(100% - 60px);  left: 0; }
-    100% { top: 0;                left: 0; }
+    0%   { top: 0; left: 0; }
+    25%  { top: 0; left: calc(100% - 200px); }
+    50%  { top: calc(100% - 60px); left: calc(100% - 200px); }
+    75%  { top: calc(100% - 60px); left: 0; }
+    100% { top: 0; left: 0; }
   }
   .slideshow-container {
     top: 50%;
@@ -287,15 +287,17 @@ body {
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
-.hearts-container {
-  position: relative;
-  width: 100%;
-  height: 150px;
-  margin-bottom: 20px;
+
+/* Containers for final overlay hearts */
+.falling-hearts-container,
+.pulsing-hearts-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
 }
 
 /* ---------- Final Overlay Heart Shape ---------- */
-/* These hearts mimic the shape of the "Press Me" button heart */
 .final-heart {
   position: relative;
   width: 50px;
@@ -304,7 +306,6 @@ body {
   transform: rotate(-45deg);
   display: inline-block;
   margin: 0 5px;
-  animation: heartPulse 2s infinite;
 }
 .final-heart::before,
 .final-heart::after {
@@ -323,10 +324,25 @@ body {
   top: 0;
   left: 25px;
 }
+
+/* Falling hearts animation */
+@keyframes fall {
+  0% { transform: translateY(0) rotate(-45deg) scale(1); opacity: 1; }
+  50% { transform: translateY(20px) rotate(-45deg) scale(1.2); opacity: 0.5; }
+  100% { transform: translateY(40px) rotate(-45deg) scale(1); opacity: 1; }
+}
+.falling-heart {
+  animation: fall 3s infinite;
+}
+
+/* Pulsating hearts animation */
 @keyframes heartPulse {
   0% { transform: rotate(-45deg) scale(1); }
   50% { transform: rotate(-45deg) scale(1.2); }
   100% { transform: rotate(-45deg) scale(1); }
+}
+.pulsate-heart {
+  animation: heartPulse 2s infinite;
 }
 
 #finalContent button {
