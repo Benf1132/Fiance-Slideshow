@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Lock viewport scaling on mobile so layout is immediately centered -->
+    <!-- Lock viewport scaling on mobile so the layout is centered immediately -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Countdown to Wedding</title>
     <link rel="stylesheet" href="styles.css" />
@@ -36,16 +36,34 @@
       <!-- Final Message Overlay (hidden initially) -->
       <div id="finalMessage" style="display: none;">
         <div id="finalContent">
-          <h1 class="pulsate">I Love You</h1>
-          <div class="hearts-container">
-            <!-- Use the same heart shape as the Press Me button by applying the final-heart class -->
-            <div class="final-heart" style="left:10%; top:0;"></div>
-            <div class="final-heart" style="left:30%; top:20px;"></div>
-            <div class="final-heart" style="left:50%; top:0;"></div>
-            <div class="final-heart" style="left:70%; top:20px;"></div>
-            <div class="final-heart" style="left:90%; top:0;"></div>
+          <!-- Top row: Falling hearts -->
+          <div class="falling-hearts-container top-row">
+            <div class="final-heart falling-heart"></div>
+            <div class="final-heart falling-heart"></div>
+            <div class="final-heart falling-heart"></div>
+            <div class="final-heart falling-heart"></div>
+            <div class="final-heart falling-heart"></div>
           </div>
+          <!-- Middle: Pulsating "I Love You" text -->
+          <h1 class="pulsate">I Love You</h1>
+          <!-- Middle row: Pulsating hearts -->
+          <div class="pulsing-hearts-container">
+            <div class="final-heart pulsate-heart"></div>
+            <div class="final-heart pulsate-heart"></div>
+            <div class="final-heart pulsate-heart"></div>
+            <div class="final-heart pulsate-heart"></div>
+            <div class="final-heart pulsate-heart"></div>
+          </div>
+          <!-- Replay button -->
           <button id="replayButton">Replay</button>
+          <!-- Bottom row: Falling hearts -->
+          <div class="falling-hearts-container bottom-row">
+            <div class="final-heart falling-heart"></div>
+            <div class="final-heart falling-heart"></div>
+            <div class="final-heart falling-heart"></div>
+            <div class="final-heart falling-heart"></div>
+            <div class="final-heart falling-heart"></div>
+          </div>
         </div>
       </div>
 
