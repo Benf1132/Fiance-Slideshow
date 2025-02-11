@@ -49,21 +49,36 @@ body {
     100% { top: 0;                left: 0; }
   }
   
-  /* Adjust for smaller screens (e.g., mobile devices) */
-  @media (max-width: 600px) {
-    #moving-text {
-      width: 200px;
-      height: 60px;
-      font-size: 2rem;
-    }
-    @keyframes squarePath {
-      0%   { top: 0;                left: 0; }
-      25%  { top: 0;                left: calc(100% - 200px); }
-      50%  { top: calc(100% - 60px);  left: calc(100% - 200px); }
-      75%  { top: calc(100% - 60px);  left: 0; }
-      100% { top: 0;                left: 0; }
-    }
+ @media (max-width: 600px) {
+  /* Reduce the moving text dimensions and font-size, and recalculate its square path */
+  #moving-text {
+    width: 200px;
+    height: 60px;
+    font-size: 2rem;
+    /* Use a mobile-specific keyframe animation */
+    animation: squarePathMobile 12s linear infinite;
   }
+  @keyframes squarePathMobile {
+    0%   { top: 0;                left: 0; }
+    25%  { top: 0;                left: calc(100% - 200px); }
+    50%  { top: calc(100% - 60px);  left: calc(100% - 200px); }
+    75%  { top: calc(100% - 60px);  left: 0; }
+    100% { top: 0;                left: 0; }
+  }
+
+  /* Make the picture frame smaller */
+  .slideshow-container {
+    width: 300px;
+    height: 300px;
+    border-width: 5px; /* (Optional) reduce border thickness */
+  }
+
+  /* Move the control buttons up so they are centered below the smaller frame */
+  #controls {
+    top: calc(50% + 170px); /* Adjust this value to add desired margin/padding */
+    gap: 5px;             /* Optionally reduce the gap between buttons */
+  }
+}
   
   /* Each letter in the moving text will have a continuous color cycle */
   .moving-letter {
