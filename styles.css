@@ -309,7 +309,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 30px 0;  /* Increased vertical margin */
+  margin: 40px 0;  /* Increased vertical margin */
 }
 /* ---------- Final Overlay Heart Shape ---------- */
 .final-heart {
