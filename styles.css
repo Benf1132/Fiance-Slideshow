@@ -1,61 +1,245 @@
 /* ---------- General Page Styles ---------- */
 body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: black;
-    font-family: Arial, sans-serif;
-    position: relative;
-  }
-  .container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-  }
-  
-  /* ---------- Background Image ---------- */
-  .background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('background.jpg') no-repeat center center/cover;
-    opacity: 0.6;
-    z-index: -1;
-  }
-  
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: black;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+/* ---------- Background Image ---------- */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('background.jpg') no-repeat center center/cover;
+  opacity: 0.6;
+  z-index: -1;
+}
+
 /* ---------- Moving "1 Day Left" Text ---------- */
 #moving-text {
-    position: fixed;
-    width: 300px;
-    height: 80px;
-    top: 0;
-    left: 0;
-    font-size: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: squarePath 12s linear infinite;
-    z-index: 2;
-  }
-  
-  /* Square path using the container dimensions for wide screens */
-  @keyframes squarePath {
-    0%   { top: 0;                left: 0; }
-    25%  { top: 0;                left: calc(100% - 300px); }
-    50%  { top: calc(100% - 80px);  left: calc(100% - 300px); }
-    75%  { top: calc(100% - 80px);  left: 0; }
-    100% { top: 0;                left: 0; }
-  }
-  
- @media (max-width: 600px) {
-  /* Reduce the moving text dimensions and font-size, and recalculate its square path */
+  position: fixed;
+  width: 300px;
+  height: 80px;
+  top: 0;
+  left: 0;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: squarePath 12s linear infinite;
+  z-index: 2;
+}
+
+/* Square path using the container dimensions for wide screens */
+@keyframes squarePath {
+  0%   { top: 0;                left: 0; }
+  25%  { top: 0;                left: calc(100% - 300px); }
+  50%  { top: calc(100% - 80px);  left: calc(100% - 300px); }
+  75%  { top: calc(100% - 80px);  left: 0; }
+  100% { top: 0;                left: 0; }
+}
+
+/* Each letter in the moving text will have a continuous color cycle */
+.moving-letter {
+  display: inline-block;
+  animation: colorCycle 3s linear infinite;
+}
+
+/* Color cycle keyframes */
+@keyframes colorCycle {
+  0%   { color: red; }
+  20%  { color: blue; }
+  40%  { color: green; }
+  60%  { color: orange; }
+  80%  { color: purple; }
+  100% { color: red; }
+}
+
+/* Extra effect animations (applied briefly to each letter) */
+@keyframes effectFade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes effectZoom {
+  0% { transform: scale(0.5); }
+  100% { transform: scale(1); }
+}
+@keyframes effectSlide {
+  0% { transform: translateY(20px); }
+  100% { transform: translateY(0); }
+}
+@keyframes effectFlip {
+  0% { transform: rotateY(90deg); }
+  100% { transform: rotateY(0deg); }
+}
+@keyframes effectDissolve {
+  0% { filter: blur(10px); opacity: 0; }
+  100% { filter: blur(0); opacity: 1; }
+}
+.effect-fade     { animation: effectFade 1s forwards; }
+.effect-zoom     { animation: effectZoom 1s forwards; }
+.effect-slide    { animation: effectSlide 1s forwards; }
+.effect-flip     { animation: effectFlip 1s forwards; }
+.effect-dissolve { animation: effectDissolve 1s forwards; }
+
+/* ---------- Circle Button (transforms to Heart on hover) ---------- */
+.circle-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  background: red;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  font-size: 24px;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  transition: all 0.5s ease;
+  overflow: visible; /* allow pseudo-elements to be visible */
+}
+
+.circle-button .heart-text {
+  position: relative;
+  z-index: 2; /* ensure text stays on top */
+  transition: transform 0.5s ease;
+}
+
+/* Pseudo-elements for heart shape (initially hidden) */
+.circle-button::before,
+.circle-button::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: red;
+  border-radius: 50%;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease, top 0.5s ease, left 0.5s ease;
+}
+
+/* On hover, transform the circle into a heart */
+.circle-button:hover {
+  transform: translate(-50%, -50%) rotate(-45deg);
+  border-radius: 0;
+}
+.circle-button:hover .heart-text {
+  transform: rotate(45deg);
+}
+/* Position and reveal pseudo-elements on hover to form the heart's lobes */
+.circle-button:hover::before {
+  opacity: 1;
+  top: -75px;
+  left: 0;
+}
+.circle-button:hover::after {
+  opacity: 1;
+  top: 0;
+  left: 75px;
+}
+
+/* ---------- Slideshow Container ---------- */
+.slideshow-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  border: 10px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Center and contain images within the frame */
+.slideshow-container img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: none;
+}
+
+/* ---------- Slideshow Controls (with extra margin) ---------- */
+#controls {
+  position: absolute;
+  top: calc(50% + 270px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#controls button {
+  font-size: 18px;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.arrow-button {
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* ---------- Slideshow Transition Animations ---------- */
+@keyframes fade {
+  0% { opacity: 0; transform: translate(-50%, -50%); }
+  100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+@keyframes zoom {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes slide {
+  0% { opacity: 0; transform: translate(-50%, -50%) translateX(-100%); }
+  100% { opacity: 1; transform: translate(-50%, -50%) translateX(0); }
+}
+@keyframes flip {
+  0% { opacity: 0; transform: translate(-50%, -50%) rotateY(90deg); }
+  100% { opacity: 1; transform: translate(-50%, -50%) rotateY(0deg); }
+}
+@keyframes dissolve {
+  0% { opacity: 0; transform: translate(-50%, -50%); filter: blur(10px); }
+  100% { opacity: 1; transform: translate(-50%, -50%); filter: blur(0); }
+}
+
+/* ---------- Mobile Styles ---------- */
+@media (max-width: 600px) {
+  /* Adjust the moving text dimensions and animation on mobile */
   #moving-text {
     width: 200px;
     height: 60px;
     font-size: 2rem;
-    /* Use a mobile-specific keyframe animation */
     animation: squarePathMobile 12s linear infinite;
   }
   @keyframes squarePathMobile {
@@ -65,205 +249,22 @@ body {
     75%  { top: calc(100% - 60px);  left: 0; }
     100% { top: 0;                left: 0; }
   }
-
-  /* Make the picture frame smaller */
+  
+  /* Make the slideshow (picture frame) responsive so there is space on either side */
   .slideshow-container {
-    width: 300px;
-    height: 300px;
-    border-width: 5px; /* (Optional) reduce border thickness */
+    width: 90vw;
+    height: 90vw;
+    max-width: 300px;
+    max-height: 300px;
+    border-width: 5px;
   }
-
-  /* Move the control buttons up so they are centered below the smaller frame */
+  
+  /* Center the controls below the frame.
+     The top value adds half of the frame's height plus an extra 20px margin. */
   #controls {
-    top: calc(50% + 170px); /* Adjust this value to add desired margin/padding */
-    gap: 5px;             /* Optionally reduce the gap between buttons */
-  }
-}
-  
-  /* Each letter in the moving text will have a continuous color cycle */
-  .moving-letter {
-    display: inline-block;
-    animation: colorCycle 3s linear infinite;
-  }
-  
-  /* Color cycle keyframes */
-  @keyframes colorCycle {
-    0%   { color: red; }
-    20%  { color: blue; }
-    40%  { color: green; }
-    60%  { color: orange; }
-    80%  { color: purple; }
-    100% { color: red; }
-  }
-  
-  /* Extra effect animations (applied briefly to each letter) */
-  @keyframes effectFade {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-  @keyframes effectZoom {
-    0% { transform: scale(0.5); }
-    100% { transform: scale(1); }
-  }
-  @keyframes effectSlide {
-    0% { transform: translateY(20px); }
-    100% { transform: translateY(0); }
-  }
-  @keyframes effectFlip {
-    0% { transform: rotateY(90deg); }
-    100% { transform: rotateY(0deg); }
-  }
-  @keyframes effectDissolve {
-    0% { filter: blur(10px); opacity: 0; }
-    100% { filter: blur(0); opacity: 1; }
-  }
-  .effect-fade     { animation: effectFade 1s forwards; }
-  .effect-zoom     { animation: effectZoom 1s forwards; }
-  .effect-slide    { animation: effectSlide 1s forwards; }
-  .effect-flip     { animation: effectFlip 1s forwards; }
-  .effect-dissolve { animation: effectDissolve 1s forwards; }
-  
-  /* ---------- Circle Button (transforms to Heart on hover) ---------- */
-  .circle-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 150px;
-    height: 150px;
-    background: red;
-    border: none;
-    border-radius: 50%;
-    color: white;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-
-    font-size: 24px;
-    cursor: pointer;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    transition: all 0.5s ease;
-    overflow: visible; /* allow pseudo-elements to be visible */
-  }
-  
-  .circle-button .heart-text {
-    position: relative;
-    z-index: 2; /* ensure text stays on top */
-    transition: transform 0.5s ease;
-  }
-  
-  /* Pseudo-elements for heart shape (initially hidden) */
-  .circle-button::before,
-  .circle-button::after {
-    content: "";
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    background: red;
-    border-radius: 50%;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 0.5s ease, top 0.5s ease, left 0.5s ease;
-  }
-  
-  /* On hover, transform the circle into a heart */
-  .circle-button:hover {
-    transform: translate(-50%, -50%) rotate(-45deg);
-    border-radius: 0;
-  }
-  
-  .circle-button:hover .heart-text {
-    transform: rotate(45deg);
-  }
-  
-  /* Position and reveal pseudo-elements on hover to form the heart's lobes */
-  .circle-button:hover::before {
-    opacity: 1;
-    top: -75px;
-    left: 0;
-  }
-  .circle-button:hover::after {
-    opacity: 1;
-    top: 0;
-    left: 75px;
-  }
-  
-  /* ---------- Slideshow Container ---------- */
-  .slideshow-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-    height: 500px;
-    border: 10px solid red;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    background: rgba(0, 0, 0, 0.5);
-  }
-  
-  /* Center and contain images within the frame */
-  .slideshow-container img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    object-position: center;
-    display: none;
-  }
-  
-  /* ---------- Slideshow Controls (with extra margin) ---------- */
-  #controls {
-    position: absolute;
-    top: calc(50% + 270px);
+    top: calc(50% + (min(90vw, 300px) / 2) + 20px);
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     gap: 10px;
   }
-  
-  #controls button {
-    font-size: 18px;
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 5px;
-  }
-  
-  .arrow-button {
-    font-size: 24px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-  
-  /* ---------- Slideshow Transition Animations ---------- */
-  @keyframes fade {
-    0% { opacity: 0; transform: translate(-50%, -50%); }
-    100% { opacity: 1; transform: translate(-50%, -50%); }
-  }
-  @keyframes zoom {
-    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  }
-  @keyframes slide {
-    0% { opacity: 0; transform: translate(-50%, -50%) translateX(-100%); }
-    100% { opacity: 1; transform: translate(-50%, -50%) translateX(0); }
-  }
-  @keyframes flip {
-    0% { opacity: 0; transform: translate(-50%, -50%) rotateY(90deg); }
-    100% { opacity: 1; transform: translate(-50%, -50%) rotateY(0deg); }
-  }
-  @keyframes dissolve {
-    0% { opacity: 0; transform: translate(-50%, -50%); filter: blur(10px); }
-    100% { opacity: 1; transform: translate(-50%, -50%); filter: blur(0); }
-  }
-  
+}
