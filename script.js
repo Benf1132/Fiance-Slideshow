@@ -35,7 +35,7 @@ const totalImages = 117;
 let images = [];
 for (let i = 1; i <= totalImages; i++) {
   // Adjust the image path as needed
-  images.push(`images/placeholder${i}.jpg`);
+  images.push(`placeholder${i}.jpg`);
 }
 // Shuffle images randomly
 images.sort(() => Math.random() - 0.5);
