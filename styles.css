@@ -293,21 +293,42 @@ body {
   height: 150px;
   margin-bottom: 20px;
 }
-/* Revised heart shape using a 12-point polygon */
-.heart {
-  position: absolute;
-  width: 30px;
-  height: 30px;
+
+/* ---------- Final Overlay Heart Shape ---------- */
+/* These hearts mimic the shape of the "Press Me" button heart */
+.final-heart {
+  position: relative;
+  width: 50px;
+  height: 50px;
   background: red;
-  clip-path: polygon(50% 0%, 63% 12%, 75% 25%, 82% 40%, 80% 60%, 70% 80%, 50% 100%, 30% 80%, 20% 60%, 18% 40%, 25% 25%, 37% 12%);
-  animation: floatHearts 4s infinite;
-  opacity: 0.8;
+  transform: rotate(-45deg);
+  display: inline-block;
+  margin: 0 5px;
+  animation: heartPulse 2s infinite;
 }
-@keyframes floatHearts {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  50% { transform: translateY(20px) scale(1.2); opacity: 0.5; }
-  100% { transform: translateY(0) scale(1); opacity: 1; }
+.final-heart::before,
+.final-heart::after {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: red;
+  border-radius: 50%;
 }
+.final-heart::before {
+  top: -25px;
+  left: 0;
+}
+.final-heart::after {
+  top: 0;
+  left: 25px;
+}
+@keyframes heartPulse {
+  0% { transform: rotate(-45deg) scale(1); }
+  50% { transform: rotate(-45deg) scale(1.2); }
+  100% { transform: rotate(-45deg) scale(1); }
+}
+
 #finalContent button {
   font-size: 1.5rem;
   padding: 10px 20px;
