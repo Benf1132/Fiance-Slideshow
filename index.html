@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Lock viewport scaling on mobile so the layout is centered immediately -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Countdown to Wedding</title>
     <link rel="stylesheet" href="styles.css" />
@@ -33,7 +32,7 @@
         <button id="nextButton" class="arrow-button">▶</button>
       </div>
 
-      <!-- Song Selector (hidden initially) -->
+      <!-- Song Selector (raised & centered) -->
       <div id="songSelectorContainer" style="display: none;">
         <select id="songSelector">
           <option value="audio/10,000_hours.mp3">10,000 Hours - Dan + Shay & Justin Bieber</option>
@@ -47,31 +46,26 @@
           <option value="audio/perfect.mp3">Perfect - Ed Sheeran</option>
           <option value="audio/speechless.mp3">Speechless - Dan + Shay</option>
           <option value="audio/stargazing.mp3">Stargazing - Myles Smith</option>
-          <option value="audio/that_part.mp3" selected>That Part - Lauren Spencer Smith</option>
+          <option value="audio/that_part.mp3">That Part - Lauren Spencer Smith</option>
           <option value="audio/worth_the_wait.mp3">Worth the Wait - Spencer Crandall</option>
         </select>
       </div>
 
-      <!-- Final Message Overlay (hidden initially) -->
+      <!-- Final Message Overlay -->
       <div id="finalMessage" style="display: none;">
         <div id="finalContent">
-          <!-- Top row: Falling hearts -->
           <div class="falling-hearts-container top-row">
             <div class="final-heart falling-heart"></div>
             <div class="final-heart falling-heart"></div>
             <div class="final-heart falling-heart"></div>
           </div>
-          <!-- Middle: Pulsating "I Love You" text -->
           <h1 class="pulsate">I Love You</h1>
-          <!-- Middle row: Pulsating hearts -->
           <div class="pulsing-hearts-container">
             <div class="final-heart pulsate-heart"></div>
             <div class="final-heart pulsate-heart"></div>
             <div class="final-heart pulsate-heart"></div>
           </div>
-          <!-- Replay button -->
           <button id="replayButton">Replay</button>
-          <!-- Bottom row: Falling hearts -->
           <div class="falling-hearts-container bottom-row">
             <div class="final-heart falling-heart"></div>
             <div class="final-heart falling-heart"></div>
@@ -81,10 +75,7 @@
       </div>
 
       <!-- Background Music -->
-      <audio id="backgroundMusic">
-        <source src="audio/that_part.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
+      <audio id="backgroundMusic"></audio>
     </div>
     <script src="script.js"></script>
   </body>
