@@ -36,6 +36,8 @@ let musicPlaying = false;
 let imagesShownCount = 0;
 
 const startButton = document.getElementById("startButton");
+const slideshowContainer = document.getElementById("slideshow-container");
+const controls = document.getElementById("controls");
 const backgroundMusic = document.getElementById("backgroundMusic");
 const playPauseMusic = document.getElementById("playPauseMusic");
 const playPauseSlideshow = document.getElementById("playPauseSlideshow");
@@ -89,6 +91,7 @@ const songList = [
 
 let shuffledQueue = [];
 
+// Shuffle function (Fisher-Yates algorithm)
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -114,8 +117,8 @@ function playNextSong() {
 /***** Button Event Listeners *****/
 startButton.addEventListener("click", () => {
   startButton.style.display = "none";
-  document.getElementById("slideshow-container").style.display = "flex";
-  document.getElementById("controls").style.display = "flex";
+  slideshowContainer.style.display = "flex";
+  controls.style.display = "flex";
   document.getElementById("songSelectorContainer").style.display = "block";
 
   setupQueue(); // Setup shuffled queue with "That Part" first
@@ -128,6 +131,7 @@ startButton.addEventListener("click", () => {
   }, 1000);
 });
 
+// Handle music playback toggle
 playPauseMusic.addEventListener("click", () => {
   if (musicPlaying) {
     backgroundMusic.pause();
@@ -139,6 +143,7 @@ playPauseMusic.addEventListener("click", () => {
   musicPlaying = !musicPlaying;
 });
 
+// Handle slideshow playback toggle
 playPauseSlideshow.addEventListener("click", () => {
   if (slideshowPlaying) {
     clearInterval(slideshowInterval);
@@ -150,9 +155,11 @@ playPauseSlideshow.addEventListener("click", () => {
   slideshowPlaying = !slideshowPlaying;
 });
 
+// Navigate through images
 prevButton.addEventListener("click", () => changeImage(-1));
 nextButton.addEventListener("click", () => changeImage(1));
 
+// Handle song selection change
 songSelector.addEventListener("change", () => {
   const selectedSong = songSelector.value;
   backgroundMusic.src = selectedSong;
@@ -161,19 +168,21 @@ songSelector.addEventListener("change", () => {
   musicPlaying = true;
   playPauseMusic.textContent = "⏸ Music";
 
-  // Remove the selected song from the queue to prevent repetition
+  // Remove selected song from queue to prevent repetition
   shuffledQueue = shuffledQueue.filter(song => song !== selectedSong);
 });
 
+// When a song ends, play the next one from the queue
 backgroundMusic.addEventListener("ended", playNextSong);
 
+// Handle replay functionality
 document.getElementById("replayButton").addEventListener("click", () => {
   document.getElementById("finalMessage").style.display = "none";
   slideshowImages.forEach(img => (img.style.display = "none"));
   currentIndex = 0;
   slideshowImages[currentIndex].style.display = "block";
 
-  setupQueue();
-  playNextSong();
+  setupQueue(); // Reset the song queue
+  playNextSong(); // Restart music
   startSlideshow();
 });
