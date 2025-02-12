@@ -89,7 +89,6 @@ const songList = [
 
 let shuffledQueue = [];
 
-// Shuffle function (Fisher-Yates algorithm)
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -143,8 +142,10 @@ playPauseMusic.addEventListener("click", () => {
 playPauseSlideshow.addEventListener("click", () => {
   if (slideshowPlaying) {
     clearInterval(slideshowInterval);
+    playPauseSlideshow.textContent = "▶ Slideshow";
   } else {
     startSlideshow();
+    playPauseSlideshow.textContent = "⏸ Slideshow";
   }
   slideshowPlaying = !slideshowPlaying;
 });
@@ -152,10 +153,26 @@ playPauseSlideshow.addEventListener("click", () => {
 prevButton.addEventListener("click", () => changeImage(-1));
 nextButton.addEventListener("click", () => changeImage(1));
 
+songSelector.addEventListener("change", () => {
+  const selectedSong = songSelector.value;
+  backgroundMusic.src = selectedSong;
+  backgroundMusic.load();
+  backgroundMusic.play();
+  musicPlaying = true;
+  playPauseMusic.textContent = "⏸ Music";
+
+  // Remove the selected song from the queue to prevent repetition
+  shuffledQueue = shuffledQueue.filter(song => song !== selectedSong);
+});
+
 backgroundMusic.addEventListener("ended", playNextSong);
 
 document.getElementById("replayButton").addEventListener("click", () => {
   document.getElementById("finalMessage").style.display = "none";
+  slideshowImages.forEach(img => (img.style.display = "none"));
+  currentIndex = 0;
+  slideshowImages[currentIndex].style.display = "block";
+
   setupQueue();
   playNextSong();
   startSlideshow();
