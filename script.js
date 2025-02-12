@@ -5,7 +5,7 @@ for (let i = 0; i < text.length; i++) {
   const span = document.createElement("span");
   span.textContent = text[i];
   span.classList.add("moving-letter");
-  span.style.animationDelay = `${i * 0.1}s`;
+  span.style.animationDelay = ${i * 0.1}s;
   movingTextContainer.appendChild(span);
 
   span.addEventListener("animationend", (e) => {
@@ -31,14 +31,14 @@ const totalImages = 117;
 let images = [];
 for (let i = 1; i <= totalImages; i++) {
   // Since your photos are in the same directory, this path is correct
-  images.push(`placeholder${i}.jpg`);
+  images.push(placeholder${i}.jpg);
 }
 images.sort(() => Math.random() - 0.5);
 
 images.forEach((src, i) => {
   const img = document.createElement("img");
   img.src = src;
-  img.alt = `Slideshow Image ${i + 1}`;
+  img.alt = Slideshow Image ${i + 1};
   if (i === 0) {
     img.style.display = "block";
   }
@@ -72,7 +72,7 @@ function changeImage(step) {
     return;
   }
   const randomEffect = transitions[Math.floor(Math.random() * transitions.length)];
-  slideshowImages[currentIndex].style.animation = `${randomEffect} 1.5s ease-in-out`;
+  slideshowImages[currentIndex].style.animation = ${randomEffect} 1.5s ease-in-out;
   slideshowImages[currentIndex].style.display = "block";
 }
 
@@ -89,18 +89,58 @@ function endSlideshow() {
   document.getElementById("finalMessage").style.display = "flex";
 }
 
+/***** Song Selector Setup *****/
+const songSelector = document.getElementById("songSelector");
+const songList = [
+  "10,000_hours.mp3",
+  "all_of_me.mp3",
+  "always_you.mp3",
+  "carry_you_hoome.mp3",
+  "forever_and_ever.mp3",
+  "just_the_way_you_are.mp3",
+  "marry_me.mp3",
+  "marry_you.p3",
+  "perfect.mp3",
+  "speechless.mp3",
+  "stargazing.mp3",
+  "that_part.mp3",
+  "worth_the_wait.mp3",
+];
+
+function chooseRandomSong() {
+  const randomIndex = Math.floor(Math.random() * songList.length);
+  return songList[randomIndex];
+}
+
+function updateAudioSource() {
+  let selectedSong = songSelector.value;
+  if (!selectedSong) {
+    selectedSong = chooseRandomSong();
+  }
+  backgroundMusic.src = selectedSong;
+  backgroundMusic.load();
+  backgroundMusic.play();
+}
+
+songSelector.addEventListener("change", updateAudioSource);
+
+backgroundMusic.addEventListener("ended", () => {
+  if (songSelector.value === "") {
+    updateAudioSource();
+  }
+});
+
 /***** Button Event Listeners *****/
 startButton.addEventListener("click", () => {
   startButton.style.display = "none";
   slideshowContainer.style.display = "flex";
   controls.style.display = "flex";
+  document.getElementById("songSelectorContainer").style.display = "block";
 
-  // Start music immediately
-  backgroundMusic.play();
+  updateAudioSource();
   musicPlaying = true;
   playPauseMusic.textContent = "⏸ Music";
 
-  // After a 1-second delay, start the slideshow so the music is already playing
   setTimeout(() => {
     startSlideshow();
   }, 1000);
@@ -132,13 +172,10 @@ prevButton.addEventListener("click", () => changeImage(-1));
 nextButton.addEventListener("click", () => changeImage(1));
 
 document.getElementById("replayButton").addEventListener("click", () => {
-  // Hide final message overlay
   document.getElementById("finalMessage").style.display = "none";
-  // Reset slideshow images: hide all and show first image
   slideshowImages.forEach(img => (img.style.display = "none"));
   currentIndex = 0;
   slideshowImages[currentIndex].style.display = "block";
-  // Restart music and slideshow
   backgroundMusic.currentTime = 0;
   backgroundMusic.play();
   startSlideshow();
