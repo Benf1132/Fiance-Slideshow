@@ -7,23 +7,7 @@ for (let i = 0; i < text.length; i++) {
   span.classList.add("moving-letter");
   span.style.animationDelay = `${i * 0.1}s`;
   movingTextContainer.appendChild(span);
-
-  span.addEventListener("animationend", (e) => {
-    const extraEffects = ["effectFade", "effectZoom", "effectSlide", "effectFlip", "effectDissolve"];
-    if (extraEffects.includes(e.animationName)) {
-      span.classList.remove("effect-fade", "effect-zoom", "effect-slide", "effect-flip", "effect-dissolve");
-    }
-  });
 }
-
-movingTextContainer.addEventListener("animationiteration", () => {
-  const letters = document.querySelectorAll("#moving-text .moving-letter");
-  const effects = ["effect-fade", "effect-zoom", "effect-slide", "effect-flip", "effect-dissolve"];
-  letters.forEach(letter => {
-    const randomEffect = effects[Math.floor(Math.random() * effects.length)];
-    letter.classList.add(randomEffect);
-  });
-});
 
 /***** Slideshow Setup *****/
 const slideshowWrapper = document.getElementById("slideshow-wrapper");
@@ -59,6 +43,7 @@ const playPauseMusic = document.getElementById("playPauseMusic");
 const playPauseSlideshow = document.getElementById("playPauseSlideshow");
 const prevButton = document.getElementById("prevButton");
 const nextButton = document.getElementById("nextButton");
+const songSelector = document.getElementById("songSelector");
 
 const transitions = ["fade", "zoom", "slide", "flip", "dissolve"];
 
@@ -76,7 +61,7 @@ function changeImage(step) {
 }
 
 function startSlideshow() {
-  imagesShownCount = 0; // Reset counter
+  imagesShownCount = 0;
   slideshowInterval = setInterval(() => {
     changeImage(1);
   }, 3000);
@@ -88,46 +73,46 @@ function endSlideshow() {
   document.getElementById("finalMessage").style.display = "flex";
 }
 
-/***** Song Selector Setup *****/
-const songSelector = document.getElementById("songSelector");
+/***** Song Queue and Audio Setup *****/
 const songList = [
-  "10,000_hours.mp3",
-  "all_of_me.mp3",
-  "always_you.mp3",
-  "carry_you_home.mp3",
-  "forever_and_ever.mp3",
-  "just_the_way_you_are.mp3",
-  "marry_me.mp3",
-  "marry_you.mp3",
-  "perfect.mp3",
-  "speechless.mp3",
-  "stargazing.mp3",
-  "that_part.mp3",
-  "worth_the_wait.mp3",
+  "audio/10,000_hours.mp3",
+  "audio/all_of_me.mp3",
+  "audio/always_you.mp3",
+  "audio/carry_you_home.mp3",
+  "audio/forever_and_ever.mp3",
+  "audio/just_the_way_you_are.mp3",
+  "audio/marry_me.mp3",
+  "audio/marry_you.mp3",
+  "audio/perfect.mp3",
+  "audio/speechless.mp3",
+  "audio/stargazing.mp3",
+  "audio/worth_the_wait.mp3"
 ];
 
-function chooseRandomSong() {
-  const randomIndex = Math.floor(Math.random() * songList.length);
-  return songList[randomIndex];
+let shuffledQueue = [];
+
+// Shuffle function (Fisher-Yates algorithm)
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
 }
 
-function updateAudioSource() {
-  let selectedSong = songSelector.value;
-  if (!selectedSong) {
-    selectedSong = chooseRandomSong();
-  }
-  backgroundMusic.src = selectedSong;
-  backgroundMusic.load();
-  backgroundMusic.play();
+function setupQueue() {
+  shuffledQueue = [...songList];
+  shuffleArray(shuffledQueue);
+  shuffledQueue.unshift("audio/that_part.mp3"); // Ensure "That Part" plays first
 }
 
-songSelector.addEventListener("change", updateAudioSource);
-
-backgroundMusic.addEventListener("ended", () => {
-  if (songSelector.value === "") {
-    updateAudioSource();
+function playNextSong() {
+  if (shuffledQueue.length > 0) {
+    const nextSong = shuffledQueue.shift();
+    backgroundMusic.src = nextSong;
+    backgroundMusic.load();
+    backgroundMusic.play();
   }
-});
+}
 
 /***** Button Event Listeners *****/
 startButton.addEventListener("click", () => {
@@ -136,7 +121,8 @@ startButton.addEventListener("click", () => {
   controls.style.display = "flex";
   document.getElementById("songSelectorContainer").style.display = "block";
 
-  updateAudioSource();
+  setupQueue(); // Setup shuffled queue with "That Part" first
+  playNextSong(); // Start music immediately
   musicPlaying = true;
   playPauseMusic.textContent = "⏸ Music";
 
@@ -145,6 +131,7 @@ startButton.addEventListener("click", () => {
   }, 1000);
 });
 
+// Handle music playback toggle
 playPauseMusic.addEventListener("click", () => {
   if (musicPlaying) {
     backgroundMusic.pause();
@@ -156,6 +143,7 @@ playPauseMusic.addEventListener("click", () => {
   musicPlaying = !musicPlaying;
 });
 
+// Handle slideshow playback toggle
 playPauseSlideshow.addEventListener("click", () => {
   if (slideshowPlaying) {
     clearInterval(slideshowInterval);
@@ -167,15 +155,34 @@ playPauseSlideshow.addEventListener("click", () => {
   slideshowPlaying = !slideshowPlaying;
 });
 
+// Navigate through images
 prevButton.addEventListener("click", () => changeImage(-1));
 nextButton.addEventListener("click", () => changeImage(1));
 
+// Handle song selection change
+songSelector.addEventListener("change", () => {
+  const selectedSong = songSelector.value;
+  backgroundMusic.src = selectedSong;
+  backgroundMusic.load();
+  backgroundMusic.play();
+  musicPlaying = true;
+  playPauseMusic.textContent = "⏸ Music";
+
+  // Remove selected song from queue to prevent repetition
+  shuffledQueue = shuffledQueue.filter(song => song !== selectedSong);
+});
+
+// When a song ends, play the next one from the queue
+backgroundMusic.addEventListener("ended", playNextSong);
+
+// Handle replay functionality
 document.getElementById("replayButton").addEventListener("click", () => {
   document.getElementById("finalMessage").style.display = "none";
   slideshowImages.forEach(img => (img.style.display = "none"));
   currentIndex = 0;
   slideshowImages[currentIndex].style.display = "block";
-  backgroundMusic.currentTime = 0;
-  backgroundMusic.play();
+
+  setupQueue(); // Reset the song queue
+  playNextSong(); // Restart music
   startSlideshow();
 });
