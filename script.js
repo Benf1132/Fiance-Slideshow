@@ -5,7 +5,7 @@ for (let i = 0; i < text.length; i++) {
   const span = document.createElement("span");
   span.textContent = text[i];
   span.classList.add("moving-letter");
-  span.style.animationDelay = ${i * 0.1}s;
+  span.style.animationDelay = `${i * 0.1}s`;
   movingTextContainer.appendChild(span);
 
   span.addEventListener("animationend", (e) => {
@@ -30,15 +30,14 @@ const slideshowWrapper = document.getElementById("slideshow-wrapper");
 const totalImages = 117;
 let images = [];
 for (let i = 1; i <= totalImages; i++) {
-  // Since your photos are in the same directory, this path is correct
-  images.push(placeholder${i}.jpg);
+  images.push(`placeholder${i}.jpg`);
 }
 images.sort(() => Math.random() - 0.5);
 
 images.forEach((src, i) => {
   const img = document.createElement("img");
   img.src = src;
-  img.alt = Slideshow Image ${i + 1};
+  img.alt = `Slideshow Image ${i + 1}`;
   if (i === 0) {
     img.style.display = "block";
   }
@@ -72,7 +71,7 @@ function changeImage(step) {
     return;
   }
   const randomEffect = transitions[Math.floor(Math.random() * transitions.length)];
-  slideshowImages[currentIndex].style.animation = ${randomEffect} 1.5s ease-in-out;
+  slideshowImages[currentIndex].style.animation = `${randomEffect} 1.5s ease-in-out`;
   slideshowImages[currentIndex].style.display = "block";
 }
 
@@ -95,11 +94,11 @@ const songList = [
   "10,000_hours.mp3",
   "all_of_me.mp3",
   "always_you.mp3",
-  "carry_you_hoome.mp3",
+  "carry_you_home.mp3",
   "forever_and_ever.mp3",
   "just_the_way_you_are.mp3",
   "marry_me.mp3",
-  "marry_you.p3",
+  "marry_you.mp3",
   "perfect.mp3",
   "speechless.mp3",
   "stargazing.mp3",
